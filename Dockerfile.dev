@@ -1,0 +1,17 @@
+#base image
+FROM node:alpine
+
+#specify the working directory. ./ in the copy command refers now to /usr/app/
+workdir /usr/app
+
+#Install dependencies
+#have to install npm/nodejs first
+#copy files from our project into container, before running npm install
+#granulate has an impact on bulding time using cache. Many things could be optimized here
+copy ./package.json ./
+RUN npm install
+
+copy ./ ./
+
+#default start command
+CMD ["npm", "run", "start"]

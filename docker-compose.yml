@@ -1,0 +1,15 @@
+version: '3'
+
+#define container that will spin up (called service)
+services:
+  web-frontend: #build from the dockerfile
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - 4001:3000 #maps the port 4001 on localhost network to the port 8081 in the node-app container
+    volumes:
+      - /usr/app/node_modules
+      - .:/usr/app
+    stdin_open: true
